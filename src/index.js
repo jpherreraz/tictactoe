@@ -20,14 +20,16 @@ class Board extends React.Component {
   }
 
   handleClick(i) {
+    const isXNext = this.state.xIsNext; // Creates constant isXNext and sets it to whatever 'this.state.xIsNext' is
     const squares = this.state.board_array.slice(); // Creates constant "squares" and sets it to a copy of 'this.state.board_array'
+    // [null, null, null, null, null, null, null, null, null]
     if (calculateWinner(squares) || squares[i]) { // If either "calculateWinner(squares)" or "squares[i]" is true
-      return; // Display whichever is.
+      return; // Return nothing.
     }
     squares[i] = this.state.xIsNext ? 'X' : 'O'; // If xIsNext is true, then squares[i] = 'X', if not, squares[i] = 'O'
     this.setState({
-      board_array: squares, // Creates variable "board_array" for "squares"
-      xIsNext: !this.state.xIsNext, // Makes "this.state.xIsNext" false. Happens every click so it switches from false to true every click.
+      board_array: squares, // Takes stuff from copy and puts it on real thing.
+      xIsNext: !isXNext, // Makes "this.state.xIsNext" false. Happens every click so it switches from false to true every click.
     });
   }
 
@@ -52,22 +54,22 @@ class Board extends React.Component {
   	return (
       <div> {/* Creates a division between JSS and HTML */}
         <div className="status">{status}</div> {/* Creates CSS class "status" */}
-          <div className="board-row"> {/* Creates division with CSS class "board-row" to represent a row */}
-            {this.renderSquare(0)} {/* Puts first square from array on first row */}
-            {this.renderSquare(1)} {/* Puts second square from array on first row */}
-            {this.renderSquare(2)} {/* Puts third square from array on first row */}
-          </div>
-          <div className="board-row"> {/* Creates another division "board-row" */}
-      	    {this.renderSquare(3)} {/* Puts fourth square from array on second row */}
-      	    {this.renderSquare(4)} {/* Puts fifth square from array on second row */}
-      	    {this.renderSquare(5)} {/* Puts sixth square from array on second row */}
-          </div>
-          <div className="board-row"> {/* Creates another division "board-row" */}
-      	    {this.renderSquare(6)} {/* Puts seventh square from array on third row */}
-      	    {this.renderSquare(7)} {/* Puts eighth square from array on third row */}
-      	    {this.renderSquare(8)} {/* Puts ninth square from array on third row */}
-          </div>
+        <div className="board-row"> {/* Creates division with CSS class "board-row" to represent a row */}
+          {this.renderSquare(0)} {/* Puts first square from array on first row */}
+          {this.renderSquare(1)} {/* Puts second square from array on first row */}
+          {this.renderSquare(2)} {/* Puts third square from array on first row */}
         </div>
+        <div className="board-row"> {/* Creates another division "board-row" */}
+    	    {this.renderSquare(3)} {/* Puts fourth square from array on second row */}
+    	    {this.renderSquare(4)} {/* Puts fifth square from array on second row */}
+    	    {this.renderSquare(5)} {/* Puts sixth square from array on second row */}
+        </div>
+        <div className="board-row"> {/* Creates another division "board-row" */}
+    	    {this.renderSquare(6)} {/* Puts seventh square from array on third row */}
+    	    {this.renderSquare(7)} {/* Puts eighth square from array on third row */}
+    	    {this.renderSquare(8)} {/* Puts ninth square from array on third row */}
+        </div>
+      </div>
   		);
   }
 }
@@ -106,11 +108,12 @@ function calculateWinner(squares) {
     [0, 4, 8],
     [2, 4, 6],
   ];
+  // [null, null, null, null, X, null, null, null, null]
   for (let i = 0; i < lines.length; i++) { // "i" iterates from 0 to "lines.length"
-    const [a, b, c] = lines[i]; // Win combinations
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) { // If the three squares are on the same line
-      return squares[a]; // Outputs squares[a]
+    const [a, b, c] = lines[i]; // Win combination
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) { // If value of a, b, and c are all the same and not null
+      return squares[a]; // Outputs true
     }
   }
-  return null; // Return null and repeat function
+  return null; // If not, we still don't have a winner (function returns null).
 }

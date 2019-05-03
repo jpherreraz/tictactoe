@@ -10,4 +10,15 @@
 constructor with each new class created. However, in the boards case, we created
 our own so **React** doesn't provide the original for us (this is called *overriding*).
 We actually do wan't to use the constructor so we can build off of it. We type
-`super(props)` to do this.
+`super(props)` to do this. Then, the constructor creates an array of nine called `board_array` with every value as null and a boolean `xIsNext`.
+
+5. The board runs the render function which creates the constant winner which is determined by the function `calculateWinner` which passes in `this.state.board_array` which was already determined in the constructor. `calculateWinner` then takes each of the possible win combinations. If one of the squares are null or they don't have matching values, it will have to look through the next combination. If all of them are like that, the function will return null. If not, it will out put a value.
+
+6. The variable `status` is created. If there was a winner (meaning it was not null) the status will be "Winner: <winner>". If not, it will display "Next player: <next player>". The render function then returns **HTML** code which displays the status and places nine squares.
+
+7. The function `renderSquare` creates a variable for `board_array[i]` called `value` and it creates a variable for handleClick called onClick.
+
+8. The function `Square` creates a button in **HTML** and assigns it the **CSS** class "square". The onClick function from `renderSquare` is also added. Inside the button is the value of the square.
+
+*There are other functions running between and/or before but we won't deal with them
+in this project.*

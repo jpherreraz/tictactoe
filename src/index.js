@@ -23,7 +23,7 @@ class Board extends React.Component {
     const isXNext = this.state.xIsNext; // Creates constant isXNext and sets it to whatever 'this.state.xIsNext' is
     const squares = this.state.board_array.slice(); // Creates constant "squares" and sets it to a copy of 'this.state.board_array'
     // [null, null, null, null, null, null, null, null, null]
-    if (calculateWinner(squares) || squares[i]) { // If either "calculateWinner(squares)" or "squares[i]" is true
+    if (calculateWinner(squares) || squares[i]) { // If either "calculateWinner(squares)" or "squares[i]" is not null
       return; // Return nothing.
     }
     squares[i] = this.state.xIsNext ? 'X' : 'O'; // If xIsNext is true, then squares[i] = 'X', if not, squares[i] = 'O'
@@ -112,7 +112,7 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) { // "i" iterates from 0 to "lines.length"
     const [a, b, c] = lines[i]; // Win combination
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) { // If value of a, b, and c are all the same and not null
-      return squares[a]; // Outputs true
+      return squares[a]; // Outputs value
     }
   }
   return null; // If not, we still don't have a winner (function returns null).
